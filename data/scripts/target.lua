@@ -32,5 +32,4 @@ function target:draw()
     end
 
     love.graphics.draw(target.sprite.img, target.x, target.y)
-    love.graphics.rectangle("line", target.x, target.y, target.collider.width, target.collider.height)
 end
