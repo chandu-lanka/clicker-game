@@ -49,14 +49,18 @@ function love.mousepressed(x, y, button)
         if button == 1 then
             game_state = 2
             timer = 30
+            score = 0
         elseif button == 2 then
             game_state = 1
+            timer = 30
+            score = 0
         end
     end
 end
 
 function love.draw()
     if game_state == 1 then
+        love.graphics.setBackgroundColor(0,0,0,1)
         love.graphics.setFont(title_font)
         love.graphics.print("Clicker Game", 200, 100)
         love.graphics.setFont(font)
@@ -70,6 +74,7 @@ function love.draw()
         love.graphics.print("Timer: "..math.ceil(timer), 300, 0)
     
     elseif game_state == 3 then
+        love.graphics.setBackgroundColor(1,0,0,1)
         love.graphics.setFont(title_font)
         love.graphics.print("Time Up!", 200, 100)
         love.graphics.setFont(font)
