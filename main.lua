@@ -11,12 +11,21 @@ function love.load()
     title_font = love.graphics.newFont("data/fonts/m5x7.ttf", 100)
 
     score = 0
-    timer = 0
+    timer = 30
 
     game_state = 1
 end
 
 function love.update(dt)
+    if timer > 0 then
+        timer = timer - dt
+    end
+
+    if timer < 0 then
+        timer = 0
+        game_state = 3
+    end
+
     player:update(dt)
     target:update(dt)
 end
@@ -36,6 +45,13 @@ function love.mousepressed(x, y, button)
                 end
             end
         end
+    elseif game_state == 3 then
+        if button == 1 then
+            game_state = 2
+            timer = 30
+        elseif button == 2 then
+            game_state = 1
+        end
     end
 end
 
@@ -51,6 +67,15 @@ function love.draw()
         target:draw()
         love.graphics.setFont(font)
         love.graphics.print("Score: "..tostring(score), 0, 0)
+        love.graphics.print("Timer: "..math.ceil(timer), 300, 0)
+    
+    elseif game_state == 3 then
+        love.graphics.setFont(title_font)
+        love.graphics.print("Time Up!", 200, 100)
+        love.graphics.setFont(font)
+        love.graphics.print("your score was: " .. tostring(score), 200, 200)
+        love.graphics.print("left click to play again", 200, 300)
+        love.graphics.print("right click to menu", 200, 400)
     end
 
     player:draw()
